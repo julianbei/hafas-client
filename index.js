@@ -53,6 +53,7 @@ const createClient = (profile, request = _request) => {
 			results: 5, // how many journeys?
 			via: null, // let journeys pass this station?
 			passedStations: false, // return stations on the way?
+			transferInfo: false, // add transfer information to the legs?
 			transfers: 5, // maximum of 5 transfers
 			transferTime: 0, // minimum time for a single transfer in minutes
 			// todo: does this work with every endpoint?
@@ -62,6 +63,9 @@ const createClient = (profile, request = _request) => {
 		}, opt)
 		if (opt.via) opt.via = profile.formatLocation(profile, opt.via)
 		opt.when = opt.when || new Date()
+		if (opt.transferInfo && !opt.passedStations) {
+			throw new Error('opt.transferInfo requires opt.passedStations')
+		}
 
 		const filters = [
 			profile.formatProducts(opt.products || {})
@@ -102,7 +106,7 @@ const createClient = (profile, request = _request) => {
 		})
 		.then((d) => {
 			if (!Array.isArray(d.outConL)) return []
-			const parse = profile.parseJourney(profile, d.locations, d.lines, d.remarks)
+			const parse = profile.parseJourney(profile, d.locations, d.lines, d.remarks, !!opt.transferInfo)
 			return d.outConL.map(parse)
 		})
 	}

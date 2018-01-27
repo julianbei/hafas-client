@@ -16,6 +16,7 @@ const createParseBitmask = require('../../parse/products-bitmask')
 const createFormatBitmask = require('../../format/products-bitmask')
 
 const modes = require('./modes')
+const addTransferInfoToJourney = require('./add-transfer-info')
 
 const formatBitmask = createFormatBitmask(modes)
 
@@ -69,10 +70,10 @@ const parseLocation = (profile, l, lines) => {
 	return res
 }
 
-const createParseJourney = (profile, stations, lines, remarks) => {
+const createParseJourney = (profile, stations, lines, remarks, transferInfo) => {
 	const parseJourney = _createParseJourney(profile, stations, lines, remarks)
 
-	const parseJourneyWithTickets = (j) => {
+	const parseJourneyWithTickets = (j) => { // and transfer positions
 		const res = parseJourney(j)
 
 		if (
@@ -92,6 +93,8 @@ const createParseJourney = (profile, stations, lines, remarks) => {
 				}
 			}
 		}
+
+		if (transferInfo) addTransferInfoToJourney(res)
 
 		return res
 	}

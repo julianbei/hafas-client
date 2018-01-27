@@ -4,7 +4,7 @@ const createParseJourneyLeg = require('./journey-leg')
 
 const clone = obj => Object.assign({}, obj)
 
-const createParseJourney = (profile, stations, lines, remarks) => {
+const createParseJourney = (profile, stations, lines, remarks) => { // transferInfo
 	const parseLeg = createParseJourneyLeg(profile, stations, lines, remarks)
 
 	// todo: c.sDays
