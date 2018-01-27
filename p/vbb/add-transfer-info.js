@@ -5,7 +5,7 @@ const getChangePositions = require('vbb-change-positions')
 // by prevStation-fromStation-toStation-nextStation signature
 const changePositions = {}
 
-getChangePositions()
+const importTask = getChangePositions()
 .then((data) => {
 	for (let item of data) {
 		const sig = [
@@ -21,7 +21,7 @@ getChangePositions()
 		changePositions[sig].push(item)
 	}
 })
-.catch(console.error)
+importTask.catch(console.error)
 
 // Synchronous iteration might become a problem in the future, as
 // `vbb-change-positions` might contain thousands of entries.
@@ -70,4 +70,6 @@ const addTransferInfoToJourney = (j) => {
 	}
 }
 
+// todo: this is uglfy, build something cleaner
+addTransferInfoToJourney.import = importTask
 module.exports = addTransferInfoToJourney

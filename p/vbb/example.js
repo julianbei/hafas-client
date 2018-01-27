@@ -5,8 +5,12 @@ const vbbProfile = require('.')
 
 const client = createClient(vbbProfile)
 
-// Hauptbahnhof to Charlottenburg
-client.journeys('900000003201', '900000024101', {results: 1})
+// U Kottbusser Tor -> U Platz der Luftbrücke
+client.journeys('900000013102', '900000017102', {
+	results: 1,
+	passedStations: true,
+	transferInfo: true
+})
 // client.departures('900000013102', {duration: 1})
 // client.locations('Alexanderplatz', {results: 2})
 // client.location('900000042101') // Spichernstr
