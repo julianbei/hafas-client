@@ -13,6 +13,8 @@ const helpers = {}
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(nahshClient, nahshProfile, helpers)
 
+test('location Schleswig', c.location('8005362', {}, {id: '8005362'}))
+
 test('locations named Kiel', c.locations('Kiel', {results: 10}, {
     type: 'station',
     id: '8000199',

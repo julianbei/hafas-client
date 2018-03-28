@@ -348,17 +348,3 @@ test('nearby Berlin Jungfernheide', co(function* (t) {
 
 	t.end()
 }))
-
-test('location', co(function* (t) {
-	const loc = yield client.location(regensburgHbf)
-
-	assertValidStation(t, loc)
-	t.equal(loc.id, regensburgHbf)
-
-	t.ok(Array.isArray(loc.lines))
-	if (Array.isArray(loc.lines)) {
-		for (let line of loc.lines) assertValidLine(t, line)
-	}
-
-	t.end()
-}))

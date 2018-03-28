@@ -13,6 +13,8 @@ const helpers = {}
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(oebbClient, oebbProfile, helpers)
 
+test('location Graz Hbf', c.location('8100173', {}, {id: '8100173'}))
+
 test('locations named Salzburg', c.locations('Salzburg', {results: 10}, {
     type: 'station',
     id: '8100002',

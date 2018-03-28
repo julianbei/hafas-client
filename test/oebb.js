@@ -400,14 +400,6 @@ test('nearby Salzburg Hbf', co(function* (t) {
 	t.end()
 }))
 
-test('location', co(function* (t) {
-	const loc = yield client.location(grazHbf)
-
-	assertValidStation(t, loc)
-	t.equal(loc.id, grazHbf)
-
-	t.end()
-}))
 
 test('radar Salzburg', co(function* (t) {
 	const vehicles = yield client.radar({

@@ -409,22 +409,6 @@ test('nearby', co(function* (t) {
 	t.end()
 }))
 
-test('location', co(function* (t) {
-	const loc = yield client.location(spichernstr)
-
-	assertValidStation(t, loc)
-	t.equal(loc.id, spichernstr)
-
-	t.ok(Array.isArray(loc.lines))
-	if (Array.isArray(loc.lines)) {
-		for (let line of loc.lines) assertValidLine(t, line)
-	}
-
-	t.end()
-}))
-
-
-
 test('radar', co(function* (t) {
 	const vehicles = yield client.radar({
 		north: 52.52411,

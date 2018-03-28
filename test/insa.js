@@ -294,16 +294,6 @@ test('journey leg details', co(function* (t) {
 	t.end()
 }))
 
-test('location', co(function*(t) {
-	const magdeburgBuckau = '8013456'
-	const loc = yield client.location(magdeburgBuckau)
-
-	assertValidStation(t, loc)
-	t.equal(loc.id, magdeburgBuckau)
-
-	t.end()
-}))
-
 test('radar', co(function* (t) {
 	const north = 52.148364
 	const west = 11.600826

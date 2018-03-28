@@ -13,6 +13,8 @@ const helpers = {}
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(insaClient, insaProfile, helpers)
 
+test('location Magdeburg-Buckau', c.location('8013456', {}, {id: '8013456'}))
+
 test('locations named Magdeburg', c.locations('Magdeburg', {results: 10}, {
     type: 'station',
     id: '8010224',

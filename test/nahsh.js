@@ -352,15 +352,6 @@ test('nearby Kiel Hbf', co(function* (t) {
 	t.end()
 }))
 
-test('location', co(function* (t) {
-	const loc = yield client.location(schleswig)
-
-	assertValidStation(t, loc)
-	t.equal(loc.id, schleswig)
-
-	t.end()
-}))
-
 // todo: see #34
 test.skip('radar Kiel', co(function* (t) {
 	const vehicles = yield client.radar(54.4, 10.0, 54.2, 10.2, {
