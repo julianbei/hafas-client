@@ -8,7 +8,10 @@ const createClient = require('..')
 const nahshProfile = require('../p/nahsh')
 const nahshClient = createClient(nahshProfile)
 
+const {createWhen} = require('./util')
+
 const helpers = {}
+const when = createWhen('Europe/Berlin', 'de-DE')
 
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(nahshClient, nahshProfile, helpers)
@@ -43,3 +46,11 @@ test('nearby Kiel Hbf', c.nearby(
 		distance: [0, 100]
 	}]
 ))
+
+// todo: see #34
+test.skip('radar Kiel', c.radar({
+    north: 54.4,
+    west: 10.0,
+    south: 54.2,
+    east: 10.2,
+}, {duration: 5 * 60, when}))

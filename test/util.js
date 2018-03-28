@@ -145,6 +145,13 @@ const assertValidTicket = (t, ti) => {
 	}
 }
 
+const createAssertValidProducts = (allProducts) => (t, p) => {
+	for (let product of allProducts) {
+		product = product.id
+		t.equal(typeof p[product], 'boolean', 'product ' + product + ' must be a boolean')
+	}
+}
+
 module.exports = {
 	assertValidStation,
 	assertValidPoi,
@@ -154,5 +161,6 @@ module.exports = {
 	isValidDateTime,
 	assertValidStopover,
 	hour, createWhen, isValidWhen, assertValidWhen,
-	assertValidTicket
+	assertValidTicket,
+	createAssertValidProducts
 }

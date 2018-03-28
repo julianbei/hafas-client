@@ -12,15 +12,17 @@ const vbbClient = createClient(vbbProfile)
 
 const {
 	assertValidStation: _assertValidStation,
-	assertValidLine: _assertValidLine
+	assertValidLine: _assertValidLine,
+	createWhen
 } = require('./util')
 const shorten = require('vbb-short-station-name')
+const stations = require('vbb-stations-autocomplete')
 
+const findStation = (query) => stations(query, true, false)[0]
 const assertValidStation = (t, s, coordsOptional = false) => {
 	_assertValidStation(t, s, coordsOptional)
 	t.equal(s.name, shorten(s.name))
 }
-
 const assertValidLine = (t, l) => {
 	_assertValidLine(t, l)
 	if (l.symbol !== null) t.equal(typeof l.symbol, 'string')
@@ -31,6 +33,7 @@ const assertValidLine = (t, l) => {
 }
 
 const helpers = {assertValidStation, assertValidLine}
+const when = createWhen('Europe/Berlin', 'de-DE')
 
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(vbbClient, vbbProfile, helpers)
@@ -73,3 +76,30 @@ test('nearby Berliner Str./Bundesallee', c.nearby(
 		}
 	]
 ))
+
+const geoBox = {
+	north: 52.52411,
+	west: 13.41002,
+	south: 52.51942,
+	east: 13.41709
+}
+
+test('radar', c.radar(geoBox, {duration: 5 * 60, when}))
+test('radar', co(function* (t) {
+	const vehicles = yield vbbClient.radar(geoBox, {duration: 5 * 60, when})
+	for (let v of vehicles) {
+		if (!findStation(v.direction)) {
+			const err = new Error('unknown direction: ' + v.direction)
+			err.stack = err.stack.split('\n').slice(0, 2).join('\n')
+			console.error(err)
+		}
+
+		for (let st of v.nextStops) t.strictEqual(st.station.name.indexOf('(Berlin)'), -1)
+
+		for (let f of v.frames) {
+			t.strictEqual(f.origin.name.indexOf('(Berlin)'), -1)
+			t.strictEqual(f.destination.name.indexOf('(Berlin)'), -1)
+		}
+	}
+	t.end()
+}))
