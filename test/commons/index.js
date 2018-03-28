@@ -1,5 +1,7 @@
 'use strict'
 
+// todo: additional validation using validate-fptf
+
 const util = require('../util')
 
 const journeyLeg = require('./journey-leg')
