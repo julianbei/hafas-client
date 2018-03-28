@@ -10,8 +10,8 @@ const locationIsWanted = (l, w) => {
 	if (w.name && l.name !== w.name) return false
 	if (w.location && (
 		!l.location
-	||	!isRoughlyEqual(l.location.longitude, w.location.longitude, .0005)
-	||	!isRoughlyEqual(l.location.latitude, w.location.latitude, .0005)
+	||	!isRoughlyEqual(.0005, l.location.longitude, w.location.longitude)
+	||	!isRoughlyEqual(.0005, l.location.latitude, w.location.latitude)
 	)) return false
 	return true
 }
