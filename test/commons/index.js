@@ -2,6 +2,7 @@
 
 const util = require('../util')
 
+const journeyLeg = require('./journey-leg')
 const location = require('./location')
 const locations = require('./locations')
 const nearby = require('./nearby')
@@ -14,6 +15,7 @@ module.exports = (client, profile, helpers) => {
 		assertValidProducts: util.createAssertValidProducts(profile.products)
 	}, defaultHelpers, helpers)
 	return ({
+		journeyLeg: journeyLeg(client, profile, helpers),
 		location: location(client, profile, helpers),
 		locations: locations(client, profile, helpers),
 		nearby: nearby(client, profile, helpers),

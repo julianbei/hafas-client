@@ -21,6 +21,8 @@ const when = createWhen('Europe/Vienna', 'de-AT')
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(oebbClient, oebbProfile, helpers)
 
+test('journeyLeg', c.journeyLeg('1291501', '8000261', {when}))
+
 test('location Graz Hbf', c.location('8100173', {}, {id: '8100173'}))
 
 test('locations named Salzburg', c.locations('Salzburg', {results: 10}, {

@@ -38,6 +38,8 @@ const when = createWhen('Europe/Berlin', 'de-DE')
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(vbbClient, vbbProfile, helpers)
 
+test('journeyLeg', c.journeyLeg('900000042101', '900000009101', {when}))
+
 test('location Spichernstr', c.location('900000042101', {}, {id: '900000042101'}))
 test('location Spichernstr', co(function* (t) {
 	const location = yield vbbClient.location('900000042101')

@@ -16,6 +16,8 @@ const when = createWhen('Europe/Berlin', 'de-DE')
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(insaClient, insaProfile, helpers)
 
+test('journeyLeg', c.journeyLeg('8010224', '8013456', {when}))
+
 test('location Magdeburg-Buckau', c.location('8013456', {}, {id: '8013456'}))
 
 test('locations named Magdeburg', c.locations('Magdeburg', {results: 10}, {

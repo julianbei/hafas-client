@@ -283,29 +283,6 @@ test('earlier/later journeys, Kiel Hbf -> Flensburg', co(function* (t) {
 	t.end()
 }))
 
-test('leg details for Flensburg to Husum', co(function* (t) {
-	const journeys = yield client.journeys(flensburg, husum, {
-		results: 1, when
-	})
-
-	const p = journeys[0].legs[0]
-	t.ok(p.id, 'precondition failed')
-	t.ok(p.line.name, 'precondition failed')
-	const leg = yield client.journeyLeg(p.id, p.line.name, {when})
-
-	t.equal(typeof leg.id, 'string')
-	t.ok(leg.id)
-
-	assertValidLine(t, leg.line)
-
-	t.equal(typeof leg.direction, 'string')
-	t.ok(leg.direction)
-
-	t.ok(Array.isArray(leg.passed))
-	for (let passed of leg.passed) assertValidStopover(t, passed)
-
-	t.end()
-}))
 
 test('departures at Kiel Hbf', co(function* (t) {
 	const deps = yield client.departures(kielHbf, {

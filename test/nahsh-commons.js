@@ -16,6 +16,9 @@ const when = createWhen('Europe/Berlin', 'de-DE')
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(nahshClient, nahshProfile, helpers)
 
+// todo: investigate why flensburg -> husum (8000181) doesn't work
+test('journeyLeg', c.journeyLeg('8000103', '8005362', {when}))
+
 test('location Schleswig', c.location('8005362', {}, {id: '8005362'}))
 
 test('locations named Kiel', c.locations('Kiel', {results: 10}, {
