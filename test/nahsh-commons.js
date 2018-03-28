@@ -24,3 +24,22 @@ test('locations named Kiel', c.locations('Kiel', {results: 10}, {
         latitude: 54.314982
     }
 }))
+
+test('nearby Kiel Hbf', c.nearby(
+    {
+		type: 'location',
+		latitude: 54.314982,
+		longitude: 10.131976
+	},
+	{distance: 400, results: 2},
+	[{
+        type: 'station',
+        id: '8000199',
+        name: 'Kiel Hbf',
+        location: {
+            longitude: 10.131976,
+            latitude: 54.314982
+        },
+		distance: [0, 100]
+	}]
+))

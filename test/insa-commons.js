@@ -24,3 +24,22 @@ test('locations named Magdeburg', c.locations('Magdeburg', {results: 10}, {
         latitude: 52.130352
     }
 }))
+
+test('nearby Magdeburg Hbf', c.nearby(
+    {
+		type: 'location',
+		latitude: 52.130352,
+		longitude: 11.626891
+	},
+	{distance: 400, results: 2},
+	[{
+        type: 'station',
+        id: '8010224',
+        name: 'Magdeburg Hbf',
+        location: {
+            longitude: 11.626891,
+            latitude: 52.130352
+        },
+		distance: [0, 100]
+	}]
+))

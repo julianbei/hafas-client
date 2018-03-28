@@ -240,32 +240,6 @@ test('departures at Magdeburg Hbf', co(function*(t) {
 	t.end()
 }))
 
-test('nearby Magdeburg Hbf', co(function*(t) {
-	const magdeburgHbfPosition = {
-		type: 'location',
-		latitude: 52.130352,
-		longitude: 11.626891
-	}
-	const nearby = yield client.nearby(magdeburgHbfPosition, {
-		results: 2,
-		distance: 400
-	})
-
-	t.ok(Array.isArray(nearby))
-	t.equal(nearby.length, 2)
-
-	assertIsMagdeburgHbf(t, nearby[0])
-	t.ok(nearby[0].distance >= 0)
-	t.ok(nearby[0].distance <= 100)
-
-	for (let n of nearby) {
-		if (n.type === 'station') assertValidStation(t, n)
-		else assertValidLocation(t, n)
-	}
-
-	t.end()
-}))
-
 test('journey leg details', co(function* (t) {
 	const magdeburgHbf = '8010224'
 	const magdeburgBuckau = '8013456'

@@ -324,27 +324,3 @@ test('departures with station object', co(function* (t) {
 	t.ok('did not fail')
 	t.end()
 }))
-
-test('nearby Berlin Jungfernheide', co(function* (t) {
-	const nearby = yield client.nearby({
-		type: 'location',
-		latitude: 52.530273,
-		longitude: 13.299433
-	}, {
-		results: 2, distance: 400
-	})
-
-	t.ok(Array.isArray(nearby))
-	t.equal(nearby.length, 2)
-
-	assertIsJungfernheide(t, nearby[0])
-	t.ok(nearby[0].distance >= 0)
-	t.ok(nearby[0].distance <= 100)
-
-	for (let n of nearby) {
-		if (n.type === 'station') assertValidStation(t, n)
-		else assertValidLocation(t, n)
-	}
-
-	t.end()
-}))

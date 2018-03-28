@@ -52,3 +52,24 @@ test('locations named Alexanderplatz', co(function* (t) {
 	t.ok(locations.find(s => !s.name && s.address)) // addresses
 	t.end()
 }))
+
+test('nearby Berliner Str./Bundesallee', c.nearby(
+	{
+		type: 'location',
+		latitude: 52.4873452,
+		longitude: 13.3310411
+	},
+	{distance: 200},
+	[
+		{
+			id: '900000044201',
+			name: 'U Berliner Str.',
+			distance: [0, 100]
+		},
+		{
+			id: '900000043252',
+			name: 'Landhausstr.',
+			distance: [100, 200]
+		}
+	]
+))

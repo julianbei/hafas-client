@@ -36,3 +36,22 @@ test('locations named Jungfernheide', c.locations('Jungfernheide', {results: 10}
         latitude: 52.530408
     }
 }))
+
+test('nearby Berlin Jungfernheide', c.nearby(
+    {
+		type: 'location',
+		latitude: 52.530273,
+		longitude: 13.299433
+	},
+	{distance: 400, results: 2},
+	[{
+        type: 'station',
+        id: '8011167',
+        name: 'Berlin Jungfernheide',
+        location: {
+            longitude: 13.299424,
+            latitude: 52.530408
+        },
+		distance: [0, 100]
+	}]
+))

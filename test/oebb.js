@@ -375,32 +375,6 @@ test('departures at Salzburg Hbf', co(function* (t) {
 	t.end()
 }))
 
-test('nearby Salzburg Hbf', co(function* (t) {
-	const salzburgHbfPosition = {
-		type: 'location',
-		longitude: 13.045604,
-		latitude: 47.812851
-	}
-	const nearby = yield client.nearby(salzburgHbfPosition, {
-		results: 2, distance: 400
-	})
-
-	t.ok(Array.isArray(nearby))
-	t.equal(nearby.length, 2)
-
-	assertIsSalzburgHbf(t, nearby[0])
-	t.ok(nearby[0].distance >= 0)
-	t.ok(nearby[0].distance <= 100)
-
-	for (let n of nearby) {
-		if (n.type === 'station') assertValidStation(t, n)
-		else assertValidLocation(t, n)
-	}
-
-	t.end()
-}))
-
-
 test('radar Salzburg', co(function* (t) {
 	const vehicles = yield client.radar({
 		north: 47.827203,

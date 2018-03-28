@@ -24,3 +24,22 @@ test('locations named Salzburg', c.locations('Salzburg', {results: 10}, {
         latitude: 47.812851
     }
 }))
+
+test('nearby Salzburg Hbf', c.nearby(
+    {
+		type: 'location',
+		longitude: 13.045604,
+		latitude: 47.812851
+	},
+	{distance: 400, results: 2},
+	[{
+        type: 'station',
+        id: '8100002',
+        name: 'Salzburg Hbf',
+        location: {
+            longitude: 13.045604,
+            latitude: 47.812851
+        },
+		distance: [0, 100]
+	}]
+))

@@ -327,31 +327,6 @@ test('departures at Kiel Hbf', co(function* (t) {
 	t.end()
 }))
 
-test('nearby Kiel Hbf', co(function* (t) {
-	const kielHbfPosition = {
-		type: 'location',
-		latitude: 54.314982,
-		longitude: 10.131976
-	}
-	const nearby = yield client.nearby(kielHbfPosition, {
-		results: 2, distance: 400
-	})
-
-	t.ok(Array.isArray(nearby))
-	t.equal(nearby.length, 2)
-
-	assertIsKielHbf(t, nearby[0])
-	t.ok(nearby[0].distance >= 0)
-	t.ok(nearby[0].distance <= 100)
-
-	for (let n of nearby) {
-		if (n.type === 'station') assertValidStation(t, n)
-		else assertValidLocation(t, n)
-	}
-
-	t.end()
-}))
-
 // todo: see #34
 test.skip('radar Kiel', co(function* (t) {
 	const vehicles = yield client.radar(54.4, 10.0, 54.2, 10.2, {

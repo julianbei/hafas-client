@@ -380,35 +380,6 @@ test('departures at 7-digit station', co(function* (t) {
 	t.end()
 }))
 
-
-
-test('nearby', co(function* (t) {
-	// Berliner Str./Bundesallee
-	const nearby = yield client.nearby({
-		type: 'location',
-		latitude: 52.4873452,
-		longitude: 13.3310411
-	}, {distance: 200})
-
-	t.ok(Array.isArray(nearby))
-	for (let n of nearby) {
-		if (n.type === 'station') assertValidStation(t, n)
-		else assertValidLocation(t, n, false)
-	}
-
-	t.equal(nearby[0].id, '900000044201')
-	t.equal(nearby[0].name, 'U Berliner Str.')
-	t.ok(nearby[0].distance > 0)
-	t.ok(nearby[0].distance < 100)
-
-	t.equal(nearby[1].id, '900000043252')
-	t.equal(nearby[1].name, 'Landhausstr.')
-	t.ok(nearby[1].distance > 100)
-	t.ok(nearby[1].distance < 200)
-
-	t.end()
-}))
-
 test('radar', co(function* (t) {
 	const vehicles = yield client.radar({
 		north: 52.52411,
