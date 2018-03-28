@@ -1,8 +1,10 @@
 'use strict'
 
+const util = require('../util')
+
 const locations = require('./locations')
 
-const defaultHelpers = {}
+const defaultHelpers = Object.assign({}, util)
 
 module.exports = (client, profile, helpers) => {
 	helpers = Object.assign({}, defaultHelpers, helpers)

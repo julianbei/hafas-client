@@ -3,7 +3,6 @@
 const isRoughlyEqual = require('is-roughly-equal')
 
 const co = require('../co')
-const u = require('../util')
 
 const locationIsWanted = (l, w) => {
 	if (w.type && l.type !== w.type) return false
@@ -26,8 +25,8 @@ const testLocations = (client, profile, helpers) => (query, opt, wanted) => co(f
 	if (opt.results) t.ok(locations.length <= opt.results)
 
 	for (let l of locations) {
-		if (l.type === 'station') u.assertValidStation(t, l)
-		else u.assertValidLocation(t, l)
+		if (l.type === 'station') helpers.assertValidStation(t, l)
+		else helpers.assertValidLocation(t, l)
 	}
 
 	t.ok(locations.some(l => locationIsWanted(l, wanted)))

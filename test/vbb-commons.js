@@ -10,7 +10,20 @@ const createClient = require('..')
 const vbbProfile = require('../p/vbb')
 const vbbClient = createClient(vbbProfile)
 
-const helpers = {}
+const {
+	assertValidStation: _assertValidStation,
+	assertValidLine: _assertValidLine
+} = require('./util')
+const shorten = require('vbb-short-station-name')
+
+const assertValidStation = (t, s, coordsOptional = false) => {
+	_assertValidStation(t, s, coordsOptional)
+	t.equal(s.name, shorten(s.name))
+}
+
+const helpers = {
+	assertValidStation
+}
 
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(vbbClient, vbbProfile, helpers)
