@@ -409,25 +409,6 @@ test('nearby', co(function* (t) {
 	t.end()
 }))
 
-
-
-test('locations', co(function* (t) {
-	const locations = yield client.locations('Alexanderplatz', {results: 20})
-
-	t.ok(Array.isArray(locations))
-	t.ok(locations.length > 0)
-	t.ok(locations.length <= 20)
-	for (let l of locations) {
-		if (l.type === 'station') assertValidStation(t, l)
-		else assertValidLocation(t, l)
-	}
-	t.ok(locations.find(s => s.type === 'station'))
-	t.ok(locations.find(s => s.id && s.name)) // POIs
-	t.ok(locations.find(s => !s.name && s.address)) // addresses
-
-	t.end()
-}))
-
 test('location', co(function* (t) {
 	const loc = yield client.location(spichernstr)
 

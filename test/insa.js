@@ -294,24 +294,6 @@ test('journey leg details', co(function* (t) {
 	t.end()
 }))
 
-test('locations named Magdeburg', co(function*(t) {
-	const locations = yield client.locations('Magdeburg', {
-		results: 10
-	})
-
-	t.ok(Array.isArray(locations))
-	t.ok(locations.length > 0)
-	t.ok(locations.length <= 10)
-
-	for (let l of locations) {
-		if (l.type === 'station') assertValidStation(t, l)
-		else assertValidLocation(t, l)
-	}
-	t.ok(locations.some(isMagdeburgHbf))
-
-	t.end()
-}))
-
 test('location', co(function*(t) {
 	const magdeburgBuckau = '8013456'
 	const loc = yield client.location(magdeburgBuckau)
