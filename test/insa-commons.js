@@ -18,6 +18,17 @@ const c = createCommonsTester(insaClient, insaProfile, helpers)
 
 test('journeyLeg', c.journeyLeg('8010224', '8013456', {when}))
 
+test('departures Magdeburg Hbf', c.departures({
+    type: 'station',
+    id: '8010224',
+    name: 'Magdeburg Hbf',
+    location: {
+        longitude: 11.626891,
+        latitude: 52.130352
+    },
+    metaStation: true
+}, {duration: 5, when}))
+
 test('location Magdeburg-Buckau', c.location('8013456', {}, {id: '8013456'}))
 
 test('locations named Magdeburg', c.locations('Magdeburg', {results: 10}, {

@@ -330,24 +330,3 @@ test('earlier/later journeys, Salzburg Hbf -> Wien Westbahnhof', co(function* (t
 
 	t.end()
 }))
-
-
-test('departures at Salzburg Hbf', co(function* (t) {
-	const deps = yield client.departures(salzburgHbf, {
-		duration: 5, when
-	})
-
-	t.ok(Array.isArray(deps))
-	for (let dep of deps) {
-		assertValidStation(t, dep.station)
-		assertValidStationProducts(t, dep.station.products)
-		// todo
-		// if (!(yield findStation(dep.station.id))) {
-		// 	console.error('unknown station', dep.station.id, dep.station.name)
-		// }
-		if (dep.station.products) assertValidProducts(t, dep.station.products)
-		assertValidWhen(t, dep.when, when)
-	}
-
-	t.end()
-}))

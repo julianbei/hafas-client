@@ -23,6 +23,17 @@ const c = createCommonsTester(oebbClient, oebbProfile, helpers)
 
 test('journeyLeg', c.journeyLeg('1291501', '8000261', {when}))
 
+test('departures Salzburg Hbf', c.departures({
+    type: 'station',
+    id: '8100002',
+    name: 'Salzburg Hbf',
+    location: {
+        longitude: 13.045604,
+        latitude: 47.812851
+    },
+    metaStation: true
+}, {duration: 5, when}))
+
 test('location Graz Hbf', c.location('8100173', {}, {id: '8100173'}))
 
 test('locations named Salzburg', c.locations('Salzburg', {results: 10}, {

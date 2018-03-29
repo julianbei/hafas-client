@@ -40,6 +40,30 @@ const c = createCommonsTester(vbbClient, vbbProfile, helpers)
 
 test('journeyLeg', c.journeyLeg('900000042101', '900000009101', {when}))
 
+const spichernstr = {
+	type: 'station',
+	id: '900000042101',
+	name: 'U Spichernstr.'
+}
+test('departures Spichernstr', c.departures(spichernstr, {duration: 5, when}))
+test('departures Spichernstr', co(function* (t) {
+	const deps = yield vbbClient.departures(spichernstr.id, {duration: 5, when})
+	for (let dep of deps) {
+		if (!findStation(dep.direction)) {
+			const err = new Error('unknown direction: ' + dep.direction)
+			err.stack = err.stack.split('\n').slice(0, 2).join('\n')
+			console.error(err)
+		}
+	}
+	t.end()
+}))
+test('departures 7-digit station', co(function* (t) {
+	const eisenach = '8010097' // see derhuerst/vbb-hafas#22
+	yield vbbClient.departures(eisenach, {when})
+	t.pass('did not fail')
+	t.end()
+}))
+
 test('location Spichernstr', c.location('900000042101', {}, {id: '900000042101'}))
 test('location Spichernstr', co(function* (t) {
 	const location = yield vbbClient.location('900000042101')

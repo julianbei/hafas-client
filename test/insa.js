@@ -219,23 +219,3 @@ test('journeys: via works – without detour', co(function* (t) {
 
 	t.end()
 }))
-
-test('departures at Magdeburg Hbf', co(function*(t) {
-	const magdeburgHbf = '8010224'
-	const deps = yield client.departures(magdeburgHbf, {
-		duration: 5,
-		when
-	})
-
-	t.ok(Array.isArray(deps))
-	for (let dep of deps) {
-		assertValidStation(t, dep.station)
-		assertValidStationProducts(t, dep.station.products)
-		if (dep.station.products) {
-			assertValidProducts(t, dep.station.products)
-		}
-		assertValidWhen(t, dep.when, when)
-	}
-
-	t.end()
-}))

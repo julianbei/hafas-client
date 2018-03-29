@@ -5,6 +5,7 @@
 const util = require('../util')
 
 const journeyLeg = require('./journey-leg')
+const departures = require('./departures')
 const location = require('./location')
 const locations = require('./locations')
 const nearby = require('./nearby')
@@ -18,6 +19,7 @@ module.exports = (client, profile, helpers) => {
 	}, defaultHelpers, helpers)
 	return ({
 		journeyLeg: journeyLeg(client, profile, helpers),
+		departures: departures(client, profile, helpers),
 		location: location(client, profile, helpers),
 		locations: locations(client, profile, helpers),
 		nearby: nearby(client, profile, helpers),

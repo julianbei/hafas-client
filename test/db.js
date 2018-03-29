@@ -289,38 +289,3 @@ test('earlier/later journeys, Jungfernheide -> München Hbf', co(function* (t) {
 
 	t.end()
 }))
-
-test('departures at Berlin Jungfernheide', co(function* (t) {
-	const deps = yield client.departures(jungfernh, {
-		duration: 5, when
-	})
-
-	t.ok(Array.isArray(deps))
-	for (let dep of deps) {
-		assertValidStation(t, dep.station)
-		assertValidStationProducts(t, dep.station.products)
-		if (!(yield findStation(dep.station.id))) {
-			console.error('unknown station', dep.station.id, dep.station.name)
-		}
-		if (dep.station.products) assertValidProducts(t, dep.station.products)
-		assertValidWhen(t, dep.when, when)
-	}
-
-	t.end()
-}))
-
-test('departures with station object', co(function* (t) {
-	yield client.departures({
-		type: 'station',
-		id: jungfernh,
-		name: 'Berlin Jungfernheide',
-		location: {
-			type: 'location',
-			latitude: 1.23,
-			longitude: 2.34
-		}
-	}, {when})
-
-	t.ok('did not fail')
-	t.end()
-}))

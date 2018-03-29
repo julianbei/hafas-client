@@ -19,6 +19,17 @@ const c = createCommonsTester(nahshClient, nahshProfile, helpers)
 // todo: investigate why flensburg -> husum (8000181) doesn't work
 test('journeyLeg', c.journeyLeg('8000103', '8005362', {when}))
 
+test('departures Kiel Hbf', c.departures({
+    type: 'station',
+    id: '8000199',
+    name: 'Kiel Hbf',
+    location: {
+        longitude: 10.131976,
+        latitude: 54.314982
+    },
+    metaStation: true
+}, {duration: 30, when}))
+
 test('location Schleswig', c.location('8005362', {}, {id: '8005362'}))
 
 test('locations named Kiel', c.locations('Kiel', {results: 10}, {

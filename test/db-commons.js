@@ -10,12 +10,20 @@ const createClient = require('..')
 const dbProfile = require('../p/db')
 const dbClient = createClient(dbProfile)
 
-const {assertValidLine} = require('./util')
+const {assertValidLine, createWhen} = require('./util')
 
 const helpers = {}
+const when = createWhen('Europe/Berlin', 'de-DE')
 
 const createCommonsTester = require('./commons')
 const c = createCommonsTester(dbClient, dbProfile, helpers)
+
+test('departures Berlin Jungfernheide', c.departures({
+    type: 'station',
+    id: '8011167',
+    name: 'Berlin Jungfernheide',
+    metaStation: true
+}, {duration: 5, when}))
 
 test('location Regensburg Hbf', c.location('8000309', {}, {id: '8000309'}))
 test('location Regensburg Hbf', co(function* (t) {
